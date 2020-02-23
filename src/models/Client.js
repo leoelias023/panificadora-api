@@ -23,8 +23,27 @@ const clientSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    birthday: {
+        type: String,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    cep: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('clients', clientSchema);

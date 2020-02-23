@@ -3,10 +3,19 @@ const app = express();
 
 // Initial configurations
     app.use(express.json());
+    app.use(express.urlencoded({extended: true}));
 
 // Internal modules
-    // Models
-        const Client = require('./models/Client');
+    // Middlaware authentication
+        const flash = require('connect-flash');
+        const session = require('express-session');
+        app.use(session({
+            secret: '123123213213',
+            resave: true,
+            saveUninitialized: true
+        }))
+        app.use(flash());
+
 
 // Group of routes
     const routes = require('./routes');
