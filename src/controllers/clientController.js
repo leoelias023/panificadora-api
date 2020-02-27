@@ -84,13 +84,14 @@ module.exports = {
                         const newClient = new Client({
                             name,
                             surname,
+                            birthday,
                             cel,
                             email,
                             password: hash,
                             address,
                             city,
                             state,
-                            cep
+                            cep,
                         });
                         newClient.save();
                         res.json({
@@ -121,5 +122,45 @@ module.exports = {
                 "error": errClients
             })
         })
+    },
+
+    show: (req,res) => {
+        const { email } = req.body;
+        if(email) {
+            Client.findOne({
+                $or: [
+                    { name: email },
+                    { email: email },
+                    { surname: email }
+                ]
+            } || {name: email}).then( (clients) => {
+                if(!clients) {
+                    return res.json({
+                        status: 0,
+                        message: 'Usuário não encontrado'
+                    })
+                }
+                return res.json({
+                    status: 1,
+                    clients: [
+                        clients
+                    ],
+                })
+            }).catch( (errRequest) => {
+                return res.json({
+                    status: 0,
+                    error: errRequest
+                })
+            })
+        } else {
+            Client.find().then((clients) => {
+                return res.json({
+                    status: 1,
+                    clients: clients,
+                });
+            }).catch( (errAll) => {
+                return res.json(errAll);
+            })
+        }
     }
 }

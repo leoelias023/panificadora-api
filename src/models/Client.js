@@ -44,6 +44,10 @@ const clientSchema = new Schema({
         type: String,
         required: true,
     },
+    groupId: {
+        type: Number,
+        default: 0,
+    }
 });
 
 module.exports = mongoose.model('clients', clientSchema);
