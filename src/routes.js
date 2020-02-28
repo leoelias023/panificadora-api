@@ -13,11 +13,8 @@ router.get('/cliente/mostrar', clientController.index);
 router.get('/cliente/encontrar', clientController.show);
 
 
-const multer = require('multer');
-const multerConfig = require('./config/multerConfig');
-const upload = multer(multerConfig);
 
-router.post('/product/cadastrar', upload.single('img'), productController.store);
+router.post('/product/cadastrar', productController.store);
 router.get('/product/mostrar', productController.index);
 router.get('/product/encontrar', productController.show);
 router.get('/product/editar', productController.update);
