@@ -39,7 +39,8 @@ module.exports = {
             desc,
             price,
             imgOriginalName: img.originalfile,
-            imgUrl: img.url
+            imgUrl: img.url,
+            imgPublic_id: img.public_id,
         }).then( (product) => {
             return res.json({
                 status: 1,
@@ -66,13 +67,57 @@ module.exports = {
         })
     },
     destroy: (req,res) => {
-        res.json({message: 'destroy'});
+        const { id } = req.body;
+        Product.findOneAndDelete({_id: id}).then( (deleteProduct) => {
+            if(deleteProduct) {
+                return res.json({
+                    status: 1,
+                    message: 'Produto deletado com sucesso',
+                    deleteProduct,
+                })
+            }
+        }).catch( () => {
+            return res.json({
+                status: 0,
+                message: 'Error on delete Product in DB'
+            })
+        })
     },
-    update: (req,res) => {
-        res.json({message: 'update'});
+    update: async (req,res) => {
+        const { id, product } = req.body;
+        await Product.findByIdAndUpdate(id, {
+            $set: {
+                name: product.name,
+                desc: product.desc,
+                price: product.price,
+            }
+        }, (err, resp) => {
+            if(err) {
+                return res.json({
+                    status: 0,
+                    message: 'Error on update the product'
+                })
+            }
+            return res.json({
+                status: 1,
+                message: 'Success in update this product',
+                resp,
+            })
+        })
     },
-    show: (req,res) => {
-        res.json({message: 'show'});
+    show: async(req,res) => {
+        const { id } = req.body;
+        await Product.findOne({_id: id}).then( (product) => {
+            res.json({
+                status: 1,
+                message: 'Product found',
+                product,
+            })
+        }).catch( (errDb) => {
+            res.json({
+                status: 0,
+                message: 'Error on find Product in DB'
+            })
+        })
     },
-
 }

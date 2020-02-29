@@ -17,7 +17,7 @@ router.get('/cliente/encontrar', clientController.show);
 router.post('/product/cadastrar', productController.store);
 router.get('/product/mostrar', productController.index);
 router.get('/product/encontrar', productController.show);
-router.get('/product/editar', productController.update);
-router.get('/product/deletar', productController.destroy);
+router.put('/product/editar', productController.update);
+router.delete('/product/deletar', productController.destroy);
 
 module.exports = router;

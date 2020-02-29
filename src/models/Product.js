@@ -22,6 +22,9 @@ const Product = new Schema({
     },
     imgUrl: {
         type: String,
+    },
+    imgPublic_id: {
+        type: String,
     }
 })
 
