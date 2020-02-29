@@ -85,6 +85,27 @@ module.exports = {
     },
     update: async (req,res) => {
         const { id, product } = req.body;
+        var erros = [];
+        if(!product.name||typeof product.name == undefined || typeof product.name == null) {
+            erros.push({
+                element: 'name',
+                message: "O campo nome é obrigatório",
+            });
+        }
+        if(!product.price||typeof product.price == undefined || typeof product.price == String) {
+            erros.push({
+                element: 'price',
+                message: "O campo preço é obrigatório",
+            });
+        }
+
+        if(erros.length > 0) {
+            return res.json({
+                status: 0,
+                erros,
+            })
+        }
+
         await Product.findByIdAndUpdate(id, {
             $set: {
                 name: product.name,
