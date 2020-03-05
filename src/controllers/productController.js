@@ -21,6 +21,12 @@ module.exports = {
             })
         }
 
+        if(desc.length > 75) {
+            erros.push({
+                message: 'A descrição não pode passar de 100 caracteres'
+            })
+        }
+
         if(!price || typeof price == undefined || typeof price == null) {
             erros.push({
                 message: 'O preço é obrigatório'
