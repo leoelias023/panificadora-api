@@ -5,7 +5,7 @@ const Order = mongoose.model('orders', OrderSchema);
 
 module.exports = {
     store: async (req,res) => {
-        const { list, statePayment, idClient } = req.body;
+        const { list, statePayment, idClient, totalPrice } = req.body;
         /*
          *
          * idClient = Id do cliente que realizou a compra
@@ -17,6 +17,7 @@ module.exports = {
         const newOrder = {
             list,
             statePayment,
+            totalPrice
         }
 
         // For admin panel administration

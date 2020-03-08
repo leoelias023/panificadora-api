@@ -14,6 +14,10 @@ const OrderSchema = new Schema({
     statePayment: {
         type: String,
     },
+    totalPrice: {
+        type: Number,
+        required: true,
+    }
 });
 
 module.exports = OrderSchema;
