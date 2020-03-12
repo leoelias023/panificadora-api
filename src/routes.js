@@ -7,6 +7,7 @@ const router = express.Router();
     const productController = require('./controllers/productController');
     const authController = require('./controllers/authController');
     const orderController = require('./controllers/orderController');
+    const categoryController = require('./controllers/categoryController');
 
 router.get('/' , mainCon.index);
 
@@ -24,11 +25,15 @@ router.get('/cliente/encontrar', clientController.show);
     router.delete('/product/deletar', productController.destroy);
 
 // Route of orders
-    // Implement security key for orderController ACESS [MIDDLAWARE]
+    // Implement security key for orderController ACESS [MIDDLAWARE] POR IP
+    // Verify if the IP from access is IP of Server Machine
     router.post('/order/create', orderController.store);
     router.get('/order/index', orderController.index);
     router.get('/order/show', orderController.show);
 
+// Route of category
+    router.post('/category/create', categoryController.store);
+    router.get('/category/index', categoryController.index);
 
 // Authentication token generate for mobile version
     router.post('/auth/connect', authController.connect);
